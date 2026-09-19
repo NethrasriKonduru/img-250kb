@@ -841,78 +841,219 @@ function App() {
           e.target.value = "";
         }}
       />
+
       <header className="topbar">
         <div className="brand">
           <div className="brandMark"><Sparkles size={17}/></div>
-          <span>PixLite</span>
+          <div className="brandText">
+            <span>PixLite</span>
+            <small>smart image toolkit</small>
+          </div>
         </div>
-        <div className="topHint">Simple image tools</div>
+
+        <div className="topCenterBadge">
+          <span className="topBadgeDot"></span>
+          EXACT 250 KB
+        </div>
+
+        <div className="topRight">
+          <div className="privacyPill">
+            <Check size={13}/>
+            Processed locally
+          </div>
+          <div className="creatorPill">
+            By Srinivasulu <span>♥</span>
+          </div>
+        </div>
       </header>
 
       {!file ? (
         <main className="landing">
-          <div className="eyebrow">IMAGE TOOLKIT</div>
-          <h1>Make your images<br/><span>light & ready.</span></h1>
-          <p className="subtitle">
-            Edit any image and automatically make the final file exactly 250KB.
-          </p>
+          <section className="hero">
+            <div className="heroGlow heroGlowOne"></div>
+            <div className="heroGlow heroGlowTwo"></div>
 
-          <div
-            className={`drop ${dragging ? "dragging" : ""}`}
-            onClick={openFile}
-            onDragOver={(e)=>{e.preventDefault();setDragging(true)}}
-            onDragLeave={()=>setDragging(false)}
-            onDrop={(e)=>{e.preventDefault();setDragging(false);loadFile(e.dataTransfer.files[0])}}
-          >
-            <div className="uploadCircle"><Upload size={25}/></div>
-            <h2>Drop an image here</h2>
-            <p>or click to choose a file</p>
-            <div className="formats">JPG · PNG · WEBP</div>
-          </div>
+            <div className="eyebrow heroEyebrow">
+              <span className="eyebrowLine"></span>
+              IMAGE EDITOR
+              <span className="eyebrowLine"></span>
+            </div>
 
-          <div className="privacy"><Check size={14}/> Processed locally in your browser</div>
-          {message && <div className="error">{message}</div>}
+            <h1>
+              Edit beautifully.
+              <br/>
+              <span>Finish at exactly 250 KB.</span>
+            </h1>
+
+            <p className="subtitle">
+              Crop, rotate, flip and compress your JPG, PNG or WEBP —
+              with the original format preserved.
+            </p>
+
+            <div className="creatorHero">
+              <div className="creatorHeroGlow"></div>
+              <div className="creatorHeroTop">
+                <span className="creatorHeroKicker">A SMALL INITIATIVE BY</span>
+                <span className="creatorHeroHeart">♥</span>
+              </div>
+              <div className="creatorHeroName">SRINIVASULU</div>
+              <div className="creatorHeroBottom">
+                <span className="creatorHeroLine"></span>
+                <span>with love for our Oakland team</span>
+                <span className="creatorHeroLine"></span>
+              </div>
+            </div>
+
+            <div
+              className={`drop ${dragging ? "dragging" : ""}`}
+              onClick={openFile}
+              onDragOver={(e)=>{e.preventDefault();setDragging(true)}}
+              onDragLeave={()=>setDragging(false)}
+              onDrop={(e)=>{e.preventDefault();setDragging(false);loadFile(e.dataTransfer.files[0])}}
+            >
+              <div className="uploadTop">
+                <div className="uploadCircle"><Upload size={25}/></div>
+                <div className="uploadArrow"><Maximize2 size={15}/></div>
+              </div>
+
+              <h2>Drop your image here</h2>
+              <p>or choose a file from your computer</p>
+
+              <div className="uploadFooter">
+                <div className="formatTags">
+                  <span>JPG</span>
+                  <span>PNG</span>
+                  <span>WEBP</span>
+                </div>
+                <div className="uploadSize">No upload • no server</div>
+              </div>
+            </div>
+
+            <div className="featureRow">
+              <div className="featureCard">
+                <div className="featureIcon"><Crop size={17}/></div>
+                <div>
+                  <strong>Quick edits</strong>
+                  <span>Crop · rotate · flip</span>
+                </div>
+              </div>
+
+              <div className="featureCard">
+                <div className="featureIcon"><ImageIcon size={17}/></div>
+                <div>
+                  <strong>Same format</strong>
+                  <span>JPG stays JPG, etc.</span>
+                </div>
+              </div>
+
+              <div className="featureCard">
+                <div className="featureIcon"><Check size={17}/></div>
+                <div>
+                  <strong>Exact output</strong>
+                  <span>250 KB on download</span>
+                </div>
+              </div>
+            </div>
+
+            {message && <div className="error">{message}</div>}
+          </section>
         </main>
       ) : (
         <main className="workspace">
           <div className="workspaceHead">
-            <div>
-              <div className="eyebrow">EDITOR</div>
+            <div className="workspaceTitleBlock">
+              <div className="eyebrow">
+                <span className="liveDot"></span>
+                EDITOR
+              </div>
               <h1>Edit your image</h1>
-              <p>{file.name} · {originalSize}</p>
+              <p>{file.name} <span className="headDot">•</span> {originalSize}</p>
             </div>
-            <button className="iconBtn" onClick={()=>{setFile(null);setImage(null);setResult(null)}} title="Close">
-              <X size={20}/>
-            </button>
+
+            <div className="workspaceHeadActions">
+              <div className="formatBadge">{file.type.split("/")[1].toUpperCase()}</div>
+              <button
+                className="iconBtn"
+                onClick={()=>{setFile(null);setImage(null);setResult(null)}}
+                title="Close"
+              >
+                <X size={19}/>
+              </button>
+            </div>
           </div>
 
           <section className="editorCard">
+            <div className="editorMeta">
+              <div className="metaItem">
+                <span className="metaLabel">SOURCE</span>
+                <strong>{originalSize}</strong>
+              </div>
+              <div className="metaArrow">→</div>
+              <div className="metaItem target">
+                <span className="metaLabel">TARGET</span>
+                <strong>250 KB</strong>
+              </div>
+              <div className="metaStatus">
+                <span className="statusDot"/>
+                <span>Ready to edit</span>
+              </div>
+            </div>
+
             <div className="canvasArea">
-              <canvas
-                ref={canvasRef}
-                onPointerDown={beginCrop}
-                onPointerMove={moveCrop}
-                onPointerUp={endCrop}
-                onPointerLeave={endCrop}
-                className={cropMode ? "cropCursor" : ""}
-              />
+              <div className="canvasTopBadge">
+                <span className="canvasBadgeDot"></span>
+                {cropMode ? "CROP MODE" : result ? "OUTPUT READY" : "LIVE PREVIEW"}
+              </div>
+
+              <div className="canvasFrame">
+                <div className="frameCorner frameTL"></div>
+                <div className="frameCorner frameTR"></div>
+                <div className="frameCorner frameBL"></div>
+                <div className="frameCorner frameBR"></div>
+
+                <canvas
+                  ref={canvasRef}
+                  onPointerDown={beginCrop}
+                  onPointerMove={moveCrop}
+                  onPointerUp={endCrop}
+                  onPointerLeave={endCrop}
+                  className={cropMode ? "cropCursor" : ""}
+                />
+              </div>
+
               {cropMode && crop && (
                 <>
                   <div
                     className="cropEdge cropEdgeTop"
-                    style={{ left: `${(crop.x / canvasRef.current.width) * 100}%`, width: `${(crop.w / canvasRef.current.width) * 100}%`, top: `${(crop.y / canvasRef.current.height) * 100}%` }}
+                    style={{
+                      left: `${(crop.x / canvasRef.current.width) * 100}%`,
+                      width: `${(crop.w / canvasRef.current.width) * 100}%`,
+                      top: `${(crop.y / canvasRef.current.height) * 100}%`
+                    }}
                   />
                   <div
                     className="cropEdge cropEdgeBottom"
-                    style={{ left: `${(crop.x / canvasRef.current.width) * 100}%`, width: `${(crop.w / canvasRef.current.width) * 100}%`, top: `${((crop.y + crop.h) / canvasRef.current.height) * 100}%` }}
+                    style={{
+                      left: `${(crop.x / canvasRef.current.width) * 100}%`,
+                      width: `${(crop.w / canvasRef.current.width) * 100}%`,
+                      top: `${((crop.y + crop.h) / canvasRef.current.height) * 100}%`
+                    }}
                   />
                   <div
                     className="cropEdge cropEdgeLeft"
-                    style={{ left: `${(crop.x / canvasRef.current.width) * 100}%`, top: `${(crop.y / canvasRef.current.height) * 100}%`, height: `${(crop.h / canvasRef.current.height) * 100}%` }}
+                    style={{
+                      left: `${(crop.x / canvasRef.current.width) * 100}%`,
+                      top: `${(crop.y / canvasRef.current.height) * 100}%`,
+                      height: `${(crop.h / canvasRef.current.height) * 100}%`
+                    }}
                   />
                   <div
                     className="cropEdge cropEdgeRight"
-                    style={{ left: `${((crop.x + crop.w) / canvasRef.current.width) * 100}%`, top: `${(crop.y / canvasRef.current.height) * 100}%`, height: `${(crop.h / canvasRef.current.height) * 100}%` }}
+                    style={{
+                      left: `${((crop.x + crop.w) / canvasRef.current.width) * 100}%`,
+                      top: `${(crop.y / canvasRef.current.height) * 100}%`,
+                      height: `${(crop.h / canvasRef.current.height) * 100}%`
+                    }}
                   />
                   {[
                     ["nw", crop.x, crop.y],
@@ -930,32 +1071,66 @@ function App() {
                     />
                   ))}
                   <div className="cropActions">
-                    <button className="cropApply" onClick={performCrop}>Apply Crop</button>
-                    <button className="cropCancel" onClick={cancelCrop}>Cancel</button>
+                    <button className="cropApply" onClick={performCrop}>
+                      <Check size={15}/> Apply crop
+                    </button>
+                    <button className="cropCancel" onClick={cancelCrop}>
+                      <X size={15}/> Cancel
+                    </button>
                   </div>
-                  <div className="cropHint">Drag the sides or corners inward to crop</div>
+                  <div className="cropHint">Drag any side or corner to choose the area to keep</div>
                 </>
               )}
             </div>
 
-            <div className="toolbar">
-              <ToolButton icon={<RotateCcw/>} text="Rotate left" onClick={()=>rotate(-90)}/>
-              <ToolButton icon={<RotateCw/>} text="Rotate right" onClick={()=>rotate(90)}/>
-              <div className="divider"/>
-              <ToolButton icon={<Crop/>} text="Crop" active={cropMode} onClick={startCrop}/>
-              <ToolButton icon={<FlipHorizontal/>} text="Flip H" onClick={()=>flip("x")}/>
-              <ToolButton icon={<FlipVertical/>} text="Flip V" onClick={()=>flip("y")}/>
-              <div className="divider"/>
-              <ToolButton icon={<Undo2/>} text="Undo" disabled={!history.length} onClick={undo}/>
-              <ToolButton icon={<Redo2/>} text="Redo" disabled={!future.length} onClick={redo}/>
-              <ToolButton icon={<RefreshCcw/>} text="Reset" onClick={resetEditor}/>
+            <div className="toolPanel">
+              <div className="toolGroup">
+                <span className="toolGroupLabel">ROTATE</span>
+                <div className="toolGroupButtons">
+                  <ToolButton icon={<RotateCcw/>} text="Left" onClick={()=>rotate(-90)}/>
+                  <ToolButton icon={<RotateCw/>} text="Right" onClick={()=>rotate(90)}/>
+                </div>
+              </div>
+
+              <div className="toolDivider"></div>
+
+              <div className="toolGroup">
+                <span className="toolGroupLabel">FRAME</span>
+                <div className="toolGroupButtons">
+                  <ToolButton icon={<Crop/>} text="Crop" active={cropMode} onClick={startCrop}/>
+                </div>
+              </div>
+
+              <div className="toolDivider"></div>
+
+              <div className="toolGroup">
+                <span className="toolGroupLabel">FLIP</span>
+                <div className="toolGroupButtons">
+                  <ToolButton icon={<FlipHorizontal/>} text="Horizontal" onClick={()=>flip("x")}/>
+                  <ToolButton icon={<FlipVertical/>} text="Vertical" onClick={()=>flip("y")}/>
+                </div>
+              </div>
+
+              <div className="toolDivider"></div>
+
+              <div className="toolGroup compactGroup">
+                <span className="toolGroupLabel">HISTORY</span>
+                <div className="toolGroupButtons">
+                  <ToolButton icon={<Undo2/>} text="Undo" disabled={!history.length} onClick={undo}/>
+                  <ToolButton icon={<Redo2/>} text="Redo" disabled={!future.length} onClick={redo}/>
+                  <ToolButton icon={<RefreshCcw/>} text="Reset" onClick={resetEditor}/>
+                </div>
+              </div>
             </div>
 
             {cropMode && (
-              <div className="cropActions">
-                <span>Choose the area you want to keep.</span>
+              <div className="cropBottomBar">
                 <div>
-                  <button className="secondary" onClick={()=>{setCropMode(false);setCrop(null)}}>Cancel</button>
+                  <span className="cropBottomIcon"><Crop size={15}/></span>
+                  <span>Choose the area you want to keep.</span>
+                </div>
+                <div>
+                  <button className="secondary" onClick={cancelCrop}>Cancel</button>
                   <button className="primary small" onClick={performCrop}>Apply crop</button>
                 </div>
               </div>
@@ -965,18 +1140,20 @@ function App() {
               <div className="formatInfo">
                 <span className="statusDot"/>
                 <div>
-                  <strong>{file.type.split("/")[1].toUpperCase()}</strong>
-                  <small>Original: {originalSize}</small>
+                  <strong>{file.type.split("/")[1].toUpperCase()} OUTPUT</strong>
+                  <small>Original: {originalSize} · Exact target: 250 KB</small>
                 </div>
               </div>
 
               {!result ? (
                 <button className="primary" disabled={processing || cropMode} onClick={processImage}>
-                  {processing ? <><span className="spinner"/> Processing…</> : <><Sparkles size={18}/> Make exactly 250KB</>}
+                  {processing
+                    ? <><span className="spinner"/> Processing…</>
+                    : <><Sparkles size={18}/> Make exactly 250 KB</>}
                 </button>
               ) : (
                 <button className="primary" onClick={download}>
-                  <Download size={18}/> Download exactly 250KB
+                  <Download size={18}/> Download exactly 250 KB
                 </button>
               )}
             </div>
@@ -987,7 +1164,7 @@ function App() {
               <div className="successIcon"><Check size={18}/></div>
               <div>
                 <strong>Ready to download</strong>
-                <span>{finalSize} · same {file.type.split("/")[1].toUpperCase()} format · exactly 250KB</span>
+                <span>{finalSize} · same {file.type.split("/")[1].toUpperCase()} format · exactly 250 KB</span>
               </div>
             </div>
           )}
@@ -996,9 +1173,10 @@ function App() {
         </main>
       )}
 
-      <footer>PixLite · Fast, private image compression</footer>
+      <footer>PixLite · Private image tools</footer>
     </div>
   );
+
 }
 
 function ToolButton({icon,text,onClick,disabled,active}) {
